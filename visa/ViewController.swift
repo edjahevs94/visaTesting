@@ -8,15 +8,45 @@
 import UIKit
 import VisaNetSDK
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, VisaNetDelegate {
 
+   
+    func registrationDidEnd(serverError: Any?, responseData: Any?) {
+        if serverError == nil {
+            responseData.map { data in
+                print(data)
+            }
+            
+              }
+              else {
+              /* Do Something with NSError */
+              }
+    }
+   
+    
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        Config.CE.dataChannel = .mobile
-        Config.merchantID = "12345678"
         
+        Service.getStringData { response in
+            switch response {
+            case .success(let token):
+                self.presentVisa(with: token)
+            case .failure(let error):
+                print("error:", error)
+            }
+        
+        }
+        
+    }
+    
+    func presentVisa(with token: String) {
+        Config.CE.dataChannel = .mobile
+        Config.securityToken = token
+        Config.merchantID = "341198210"
+        Config.CE.purchaseNumber = "1790"
+        Config.amount = 15.22
+        _ = VisaNet.shared.presentVisaPaymentForm(viewController: self)
     }
 
 
