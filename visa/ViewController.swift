@@ -28,6 +28,11 @@ class ViewController: UIViewController, VisaNetDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
+    }
+    
+    @IBAction func payButton(_ sender: UIButton) {
         Service.getStringData { response in
             switch response {
             case .success(let token):
@@ -37,8 +42,9 @@ class ViewController: UIViewController, VisaNetDelegate {
             }
         
         }
-        
     }
+    
+    
     
     func presentVisa(with token: String) {
         Config.CE.dataChannel = .mobile
