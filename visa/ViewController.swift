@@ -45,6 +45,7 @@ class ViewController: UIViewController, VisaNetDelegate {
         Config.securityToken = token
         Config.merchantID = "341198210"
         Config.CE.purchaseNumber = "1790"
+        Config.PINSHA256DEV = "D6rSeGVZdgfsMVIUabjeGDzS7YvLVp7pbnRhCggz/B4="
         Config.amount = 15.22
         _ = VisaNet.shared.presentVisaPaymentForm(viewController: self)
     }
